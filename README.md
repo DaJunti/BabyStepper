@@ -46,6 +46,6 @@ bought from the local Hardwarestore
 The Esp32 is set up to listen on the Serialbluetooth port, wich means Babystepper is controlled via Bluetooth. To sent those commands to the Esp32 the easiest Way is to download/use the APP "Serial Bluetooth Monitor", another way to operate the mount would be to write an App for the Serial communtication, which i did.
 
 Sice it is "done" i was able to try it only once. The result was quite pleasing.It works but my major problem is still aligning with Polaris, because i dont have any scope, i put my smartphone next to the Mount an open up Stellarium with wich i Align with Polaris. this Method is quite inaccurate, but can work after some finetuning.
-The Picture i uploaded was 306seconds exposed with an Aperture of F1.6 at 50mm, with a Nikon D800 DSRL. Small Trailings are still visible.
+The Pictures i uploaded was 306 seconds exposed with an Aperture of F1.6 at 50mm, with a Nikon D800 DSRL. Small Trailings are still visible. Both are the same Picture the second one i just zoomed in to see a bit more from the Orion Nebula 
 
 Please leave any Suggestions for Improvement!
