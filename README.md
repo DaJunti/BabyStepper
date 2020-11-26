@@ -3,6 +3,8 @@ DIY Equatorial Camera Mount
 
 Sorry if anything is incorrect, i'm no professional, but the result did work for me.
 
+I wanted to start Astrophotography but i do not have the Money for those 300-600€ mounts which dont event fit my needs perfectly so i started desiging my own one. I spent roughtly 70€ for my Setup. This is what i came up with. 
+
 A single Axis, wich is driven by a high precision planetary geared Nema 17, compensates the Rotation of the Earth, when correct aligned.
 The Brain of the Mount is a ESP32, operating an A4988 driver. This is set to 1/16 Stepping
 The gearratio is 1/30/30 with 1/16 Stepping, this equals to 2.880.000 Steps/Revolution or 8.000 Steps/°Deg.
@@ -42,5 +44,8 @@ bought from the local Hardwarestore
 
 
 The Esp32 is set up to listen on the Serialbluetooth port, wich means Babystepper is controlled via Bluetooth. To sent those commands to the Esp32 the easiest Way is to download/use the APP "Serial Bluetooth Monitor", another way to operate the mount would be to write an App for the Serial communtication, which i did.
+
+Sice it is "done" i was able to try it only once. The result was quite pleasing.It works but my major problem is still aligning with Polaris, because i dont have any scope, i put my smartphone next to the Mount an open up Stellarium with wich i Align with Polaris. this Method is quite inaccurate, but can work after some finetuning.
+The Picture i uploaded was 306seconds exposed with an Aperture of F1.6 at 50mm, with a Nikon D800 DSRL. Small Trailings are still visible.
 
 Please leave any Suggestions for Improvement!
