@@ -34,7 +34,10 @@ https://www.banggood.com/Geekcreit-3D-Printer-A4988-Reprap-Stepping-Stepper-Moto
 https://www.omc-stepperonline.com/de/prazisions-planetengetriebe/ausverkauf-nema-17-schrittmotore-l-39mm-getriebeubersetzung-30-1-hohe-prazision-planetengetriebe.html
 Note: The Stepper motor is with 50€ by far the priciest Part, but every so often this motor is on sale at OMC Stepperonline (I got 28.09% discount)
 
-6: M10x120mm Screw and nut for connecting the Adapter to the Casing.      
+6: 1/4 to 3/8 Screws                              
+https://www.amazon.de/MENGS%C2%AE-M%C3%A4nnlich-Schraube-Edelstahl-Material-Wei%C3%9F/dp/B00IUCL46E/ref=sr_1_6?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=3%2F8+schraube&qid=1606388895&sr=8-6
+
+7: M10x120mm Screw and nut for connecting the Adapter to the Casing.      
 bought from the local Hardwarestore
 
 
