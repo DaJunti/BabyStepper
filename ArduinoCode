@@ -1,0 +1,221 @@
+#include "BluetoothSerial.h"
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+
+BluetoothSerial SerialBT;
+int Speed;
+boolean onoff;
+boolean dir;
+#define Step_en 21
+#define Step_dir 22
+#define Step_step 23
+#define Step_MS3 19
+int Mode;
+String Answer;
+
+
+void setup() {
+  Serial.begin(115200);
+  SerialBT.begin("BabySteps Tracker");                                                                 //Bluetooth device name
+  Serial.println("The device started, now you can pair it with bluetooth!");                        //Startup Message
+  Speed = 14959;
+  Mode = 1;                                                                                         //Mode1 = 1/16 Mode2 = 1/8
+  pinMode(Step_en, OUTPUT);
+  pinMode(Step_dir, OUTPUT);
+  pinMode(Step_step, OUTPUT);
+  pinMode(Step_MS3, OUTPUT);
+  digitalWrite(Step_en, HIGH);
+  digitalWrite(Step_dir, LOW);
+  digitalWrite(Step_step, LOW);
+  digitalWrite(Step_MS3, HIGH);
+  onoff = false;                                                                                   //false = off, true = on 
+  dir = false;                                                                                     //false = CCW, true = CW 
+  Serial.println("Startup Speed:");
+  Serial.println(Speed);
+  Answer = "";
+  
+                                                                             
+  
+}
+//-----------------------------------------------------------------------------------------------------------------------------------
+void loop() {
+  if(SerialBT.available()){                                                                           //Respnding to Serial Input
+    Communicate();
+    }
+  if(onoff){
+      Stepping();
+    }
+  
+}
+//-----------------------------------------------------------------------------------------------------------------------------------
+void Communicate(){
+  int Code = SerialBT.read();
+  Serial.print("Der Code ist: ");
+  Serial.println(Code);
+  switch(Code){
+// Disabeling the Stepper------------------------------------------------------------------------
+                                case 48:
+                  if(onoff==true){
+                      onoff = false;
+                      digitalWrite(Step_en, HIGH);
+                    }
+                  buildAnswer();
+                  break;
+// Enabling the Stepper--------------------------------------------------------------------------
+                case 49:
+                  
+                  if(onoff==false){
+                      onoff = true;
+                      digitalWrite(Step_en, LOW);
+                      buildAnswer();
+                    }
+                  break;
+//  increase Stepper Speed------------------------------------------------------------------------
+                case 50:
+                  
+                  Speed = Speed-1;
+                  buildAnswer();
+                  break;
+//  decrease Stepper Speed-----------------------------------------------------------------------
+                case 51:
+                  Speed = Speed+1;
+                  buildAnswer();
+                  break;
+// Change Rotation------------------------------------------------------------------------------
+                case 52:
+                  
+                  if(dir){
+                    dir = false;
+                    digitalWrite(Step_dir,LOW);
+                    }
+                    else{
+                      dir = true;
+                      digitalWrite(Step_dir,HIGH);
+                      }
+                  buildAnswer();
+                  break;
+//Changing Modes from 1/8 to 1/16 Stepping or back----------------------------------------------
+                case 53:
+                  switch(Mode){
+                    case 1:
+                      Mode = 2;
+                      Speed = Speed*2;
+                      digitalWrite(Step_MS3, LOW);
+                      buildAnswer();
+                      break;
+                    case 2:
+                      Mode = 1;
+                      Speed = Speed/2;
+                      digitalWrite(Step_MS3, HIGH);
+                      buildAnswer();
+                      break;
+                    }
+                    break;
+//FAST In- and Decrease Speed cases--------------------------------------------------------------
+                case 54:
+                  //  fast increase Stepper Speed
+                  Speed = Speed-100;
+                  buildAnswer();
+                  break;
+                  
+                case 55:
+                  //  fast dencrease Stepper Speed
+                  Speed = Speed+100;
+                  buildAnswer();
+                  break;
+//Reset ------------------------------------------------------------------------------------------
+                case 56:
+                  Speed = 14959;
+                  if(Mode==2){
+                    Mode = 1;
+                    digitalWrite(Step_MS3, HIGH);
+                    }
+                  if(dir==true){
+                    dir==false;
+                    digitalWrite(Step_dir,LOW);
+                    }
+                  if(onoff==true){
+                    onoff = false;
+                    digitalWrite(Step_en, HIGH);
+                    }
+                  buildAnswer();
+                  break;
+//Fast Test Speed---------------------------------------------------------------------------------
+                case 57:
+                  Speed = 300;
+                  buildAnswer();
+                  break;
+//Just sending an asnwer-------------------------------------------------------------------------
+                case 1:
+                  buildAnswer();
+                  break;
+                  // 10 and 13 get sent automatically from the phone's Serial Bluetoorh app so i want the programm to do nothing when they show up
+                case 13:
+                  //Carriagefeed
+                  break;
+                case 10:
+                  //Linefeed
+                  break;
+                default:
+                  //no matching code!
+                  Serial.println("ERROR");
+                  SerialBT.println("ERROR");
+                  break;
+    }
+ }
+//Other Methods---------------------------------------------------------------------------------
+  void Stepping(){
+    for(int i=0;i<10;i++){
+      digitalWrite(Step_step,HIGH);
+      delayMicroseconds(Speed);
+      digitalWrite(Step_step,LOW);
+      delayMicroseconds(Speed);
+      }
+}  
+  void Teststepping(){
+    for(int i=0;i<200;i++){
+      digitalWrite(Step_step,HIGH);
+      delayMicroseconds(500);
+      digitalWrite(Step_step,LOW);
+      delayMicroseconds(500);
+      }
+    
+    }
+  void buildAnswer(){
+      Answer = "";
+      int x = Speed*2;
+      String S = "S" + String(x);
+      String M;
+      String R;
+      String E;
+      if(Mode==1){
+        M = "M1"; 
+        }
+      else{
+        M= "M2";
+        }
+      if(dir==false){
+        R = "R2";
+        }
+      else{
+        R = "R1";
+        }
+      if(onoff==false){
+        E = "E1";
+        }
+      else{
+        E = "E2";
+        }
+      Answer =  M+R+E+S+"#";
+      SerialBT.print(Answer);
+      Serial.println(Answer);
+        
+        
+        
+        
+        
+        
+      }
