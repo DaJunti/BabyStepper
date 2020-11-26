@@ -11,6 +11,9 @@ The gearratio is 1/30/30 with 1/16 Stepping, this equals to 2.880.000 Steps/Revo
 1: Casing
 2: Axis with integrated wormwheel
 3: Wormgear 
+4: Mountadapter
+5: (optional) Controllertray
+
 
 Purchased Parts:
 Those links are only suggestions, which i have used to order parts
@@ -30,3 +33,8 @@ https://www.banggood.com/Geekcreit-3D-Printer-A4988-Reprap-Stepping-Stepper-Moto
 5: 1x Nema 17 geared Stepper Motor 
 https://www.omc-stepperonline.com/de/prazisions-planetengetriebe/ausverkauf-nema-17-schrittmotore-l-39mm-getriebeubersetzung-30-1-hohe-prazision-planetengetriebe.html
 Note: The Stepper motor is with 50€ by far the priciest Part, but every so often this motor is on sale at OMC Stepperonline (I got 28.09% discount)
+
+6: M10x120mm Screw and nut for connecting the Adapter to the Casing.
+
+
+The Esp32 is set up to listen on the Serialbluetooth port, wich means Babystepper is controlled via Bluetooth. To sent those commands to the Esp32 the easiest Way is to download/use the APP "Serial Bluetooth Monitor", another way to operate the mount would be to write an App for the Serial communtication, which i did.
